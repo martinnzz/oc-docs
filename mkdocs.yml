@@ -43,10 +43,21 @@ theme:
     code: Roboto Mono
 
 nav:
-  - Big Picture: 
+  - Big Picture:
     - Overview: index.md
     - Architecture: architecture.md
     - Continuous Delivery: continuous-delivery.md
+  - Components:
+#    - Platform:
+#        - Infrastructure: infrastructure.md
+#        - Kubernetes: kubernetes.md
+#    - Images:
+#      - Feature User Backend: images/feature-user-backend.md
+#      - Feature Asset Management Backend: images/feature-asset-management-backend.md
+#      - Feature Asset Management Backend: images/feature-asset-management-backend.md
+  - Roadmap: roadmap.md
+  - Work flows:
+      - Creating new image: workflows/creating-new-image.md
 
 plugins:
   - search
