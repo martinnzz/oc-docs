@@ -47,6 +47,10 @@ nav:
       - Overview: index.md
       - Architecture: architecture.md
       - Continuous Delivery: continuous-delivery.md
+  - Components:
+      - Images: images/
 
 plugins:
   - search
+  - literate-nav:
+      nav_file: SUMMARY.md
