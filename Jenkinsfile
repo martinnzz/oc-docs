@@ -92,6 +92,19 @@ pipeline {
             }
         }
 
+        stage('zip') {
+            steps {
+                sh '''
+                    echo "Creating archive of site content"
+                    zip -r site.zip site/
+                    echo "Copying archive to deploy location"
+                    cp site.zip "${DEPLOY_LOCATION}/../site.zip"
+                    echo "Archive created and deployed"
+                    ls -la "${DEPLOY_LOCATION}/../site.zip"
+                '''
+            }
+        }
+
         stage('Build MkDocs site') {
             steps {
                 sh """
