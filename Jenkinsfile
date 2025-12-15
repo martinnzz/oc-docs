@@ -96,7 +96,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Creating archive of site content"
-                    zip -r site.zip site/
+                    zip -r site.zip .
                     echo "Copying archive to deploy location"
                     cp site.zip "${DEPLOY_LOCATION}/../site.zip"
                     echo "Archive created and deployed"
