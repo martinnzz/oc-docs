@@ -90,7 +90,7 @@ pipeline {
                         name=$(echo "$basename" | tr '-' ' ')
                         echo "* [$name]($basename/)" >> docs/schema/SUMMARY.md
                     done
-                    sort -o docs/images/SUMMARY.md docs/schema/SUMMARY.md
+                    sort -o docs/schema/SUMMARY.md docs/schema/SUMMARY.md
                     cat docs/schema/SUMMARY.md
                     ls -la docs/schema/
                 '''
