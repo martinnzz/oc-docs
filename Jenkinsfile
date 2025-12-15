@@ -29,6 +29,8 @@ pipeline {
                 sh '''
                     echo "Starting Copy in images schema stage"
                     echo "IMAGE_DOCS_LOCATION: ${IMAGE_DOCS_LOCATION}"
+                    mkdir -p "docs/schema"
+                    > docs/schema/SUMMARY.md
                     for dir in ${IMAGE_DOCS_LOCATION}/*/; do
                         echo "Processing directory: $dir"
                         basename_dir=$(basename "$dir")
@@ -40,6 +42,9 @@ pipeline {
                                 mkdir -p "docs/schema/${basename_dir}"
                                 cp "${dir}latest/schema/"*.html "docs/schema/${basename_dir}/"
                                 echo "  Copied to docs/schema/${basename_dir}/"
+                                name=$(echo "$basename_dir" | tr '-' ' ')
+                                echo "* [$name]($basename_dir/)" >> docs/schema/SUMMARY.md
+                                echo "  Added to SUMMARY.md: * [$name]($basename_dir/)"
                             else
                                 echo "  No HTML files found - skipping"
                             fi
@@ -47,7 +52,10 @@ pipeline {
                             echo "  No latest/schema folder - skipping"
                         fi
                     done
+                    sort -o docs/schema/SUMMARY.md docs/schema/SUMMARY.md
                     echo "Copy in images schema stage complete"
+                    echo "Final SUMMARY.md contents:"
+                    cat docs/schema/SUMMARY.md
                 '''
             }
         }
