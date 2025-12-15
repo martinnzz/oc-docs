@@ -62,6 +62,8 @@ pipeline {
                         echo "* [$name]($basename/)" >> docs/images/SUMMARY.md
                     done
                     sort -o docs/images/SUMMARY.md docs/images/SUMMARY.md
+                    cat docs/images/SUMMARY.md
+                    ls -la docs/images/
                 '''
             }
         }
@@ -76,6 +78,8 @@ pipeline {
                         echo "* [$name]($basename/)" >> docs/schema/SUMMARY.md
                     done
                     sort -o docs/images/SUMMARY.md docs/schema/SUMMARY.md
+                    cat docs/schema/SUMMARY.md
+                    ls -la docs/schema/
                 '''
             }
         }
