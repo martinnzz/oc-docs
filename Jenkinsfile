@@ -4,7 +4,7 @@ pipeline {
     environment {
         MKDOCS_IMAGE         = "squidfunk/mkdocs-material:9.7"
         DEPLOY_LOCATION      = "/net/awpbuild/tftpboot/awplus-gui/cloud/docs/mkdocs/site"
-        IMAGE_DOCS_LOCATION      = "/net/awpbuild/tftpboot/awplus-gui/cloud/docs/images"
+        IMAGE_DOCS_LOCATION  = "/net/awpbuild/tftpboot/awplus-gui/cloud/docs/images"
     }
 
     stages {
@@ -27,17 +27,11 @@ pipeline {
         stage('Copy in images schema') {
             steps {
                 sh '''
-                    echo "Starting Copy in images schema stage"
-                    echo "IMAGE_DOCS_LOCATION: ${IMAGE_DOCS_LOCATION}"
                     mkdir -p "docs/schema"
                     for dir in ${IMAGE_DOCS_LOCATION}/*/; do
-                        echo "Processing directory: $dir"
                         basename_dir=$(basename "$dir")
-                        echo "  Basename: $basename_dir"
                         if [ -d "${dir}latest/schema" ]; then
-                            echo "  Found latest/schema folder"
                             if [ -n "$(find "${dir}latest/schema" -name '*.html' -type f 2>/dev/null | head -1)" ]; then
-                                echo "  Folder contains HTML files - copying"
                                 mkdir -p "docs/schema/${basename_dir}"
                                 > "docs/schema/${basename_dir}/SUMMARY.md"
                                 for html_file in "${dir}latest/schema/"*.html; do
@@ -46,21 +40,13 @@ pipeline {
                                         html_basename=$(basename "$html_file")
                                         file_name=$(basename "$html_file" .html | tr '-' ' ')
                                         echo "* [${file_name}](${html_basename})" >> "docs/schema/${basename_dir}/SUMMARY.md"
-                                        echo "  Added to SUMMARY.md: * [${file_name}](${html_basename})"
                                     fi
                                 done
                                 sort -o "docs/schema/${basename_dir}/SUMMARY.md" "docs/schema/${basename_dir}/SUMMARY.md"
-                                echo "  Copied to docs/schema/${basename_dir}/"
-                                echo "  SUMMARY.md contents:"
                                 cat "docs/schema/${basename_dir}/SUMMARY.md"
-                            else
-                                echo "  No HTML files found - skipping"
                             fi
-                        else
-                            echo "  No latest/schema folder - skipping"
                         fi
                     done
-                    echo "Copy in images schema stage complete"
                 '''
             }
         }
@@ -75,8 +61,6 @@ pipeline {
                         echo "* [$name]($basename/)" >> docs/images/SUMMARY.md
                     done
                     sort -o docs/images/SUMMARY.md docs/images/SUMMARY.md
-                    cat docs/images/SUMMARY.md
-                    ls -la docs/images/
                 '''
             }
         }
@@ -91,8 +75,6 @@ pipeline {
                         echo "* [$name]($basename/)" >> docs/schema/SUMMARY.md
                     done
                     sort -o docs/schema/SUMMARY.md docs/schema/SUMMARY.md
-                    cat docs/schema/SUMMARY.md
-                    ls -la docs/schema/
                 '''
             }
         }
