@@ -49,7 +49,7 @@ nav:
       - Continuous Delivery: continuous-delivery.md
   - Components:
       - Images: images/
-      - Schemas:
+      - Schemas: schema/
 
 plugins:
   - search
