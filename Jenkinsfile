@@ -8,12 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/martinnzz/oc-docs', changelog: false
-            }
-        }
-
         stage('Copy in images docs') {
             steps {
                 sh '''
