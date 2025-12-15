@@ -30,7 +30,6 @@ pipeline {
                     echo "Starting Copy in images schema stage"
                     echo "IMAGE_DOCS_LOCATION: ${IMAGE_DOCS_LOCATION}"
                     mkdir -p "docs/schema"
-                    > docs/schema/SUMMARY.md
                     for dir in ${IMAGE_DOCS_LOCATION}/*/; do
                         echo "Processing directory: $dir"
                         basename_dir=$(basename "$dir")
@@ -40,11 +39,20 @@ pipeline {
                             if [ -n "$(find "${dir}latest/schema" -name '*.html' -type f 2>/dev/null | head -1)" ]; then
                                 echo "  Folder contains HTML files - copying"
                                 mkdir -p "docs/schema/${basename_dir}"
-                                cp "${dir}latest/schema/"*.html "docs/schema/${basename_dir}/"
+                                > "docs/schema/${basename_dir}/SUMMARY.md"
+                                for html_file in "${dir}latest/schema/"*.html; do
+                                    if [ -f "$html_file" ]; then
+                                        cp "$html_file" "docs/schema/${basename_dir}/"
+                                        html_basename=$(basename "$html_file")
+                                        file_name=$(basename "$html_file" .html | tr '-' ' ')
+                                        echo "* [${file_name}](${html_basename})" >> "docs/schema/${basename_dir}/SUMMARY.md"
+                                        echo "  Added to SUMMARY.md: * [${file_name}](${html_basename})"
+                                    fi
+                                done
+                                sort -o "docs/schema/${basename_dir}/SUMMARY.md" "docs/schema/${basename_dir}/SUMMARY.md"
                                 echo "  Copied to docs/schema/${basename_dir}/"
-                                name=$(echo "$basename_dir" | tr '-' ' ')
-                                echo "* [$name]($basename_dir/)" >> docs/schema/SUMMARY.md
-                                echo "  Added to SUMMARY.md: * [$name]($basename_dir/)"
+                                echo "  SUMMARY.md contents:"
+                                cat "docs/schema/${basename_dir}/SUMMARY.md"
                             else
                                 echo "  No HTML files found - skipping"
                             fi
@@ -52,10 +60,7 @@ pipeline {
                             echo "  No latest/schema folder - skipping"
                         fi
                     done
-                    sort -o docs/schema/SUMMARY.md docs/schema/SUMMARY.md
                     echo "Copy in images schema stage complete"
-                    echo "Final SUMMARY.md contents:"
-                    cat docs/schema/SUMMARY.md
                 '''
             }
         }
