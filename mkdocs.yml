@@ -58,4 +58,4 @@ plugins:
   - search
   - literate-nav:
       nav_file: SUMMARY.md
-
+  - glightbox

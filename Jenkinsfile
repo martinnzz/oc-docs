@@ -98,7 +98,7 @@ pipeline {
                     docker run --rm \
                         -v "\$PWD":/docs \
                         --entrypoint sh \
-                        ${MKDOCS_IMAGE} -c "pip install mkdocs-literate-nav && mkdocs build"
+                        ${MKDOCS_IMAGE} -c "pip install mkdocs-literate-nav mkdocs-glightbox && mkdocs build"
                 """
             }
         }
