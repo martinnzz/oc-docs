@@ -50,6 +50,10 @@ nav:
   - Components:
       - Images: images/
       - Schemas: schema/
+  - Platform:
+      - Infrastructure: infrastructure/
+      - Applications: applications/
+  - Workflows: workflows/
 
 markdown_extensions:
   - attr_list

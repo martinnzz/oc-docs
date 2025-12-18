@@ -8,5 +8,5 @@
 ## A loosely-coupled architecture
 
 
-![Continuous Delivery](Diagram.svg "Continuous Delivery"){ .zoom }
+![Continuous Delivery](Diagram.svg "Continuous Delivery")
 
