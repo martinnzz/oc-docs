@@ -54,6 +54,7 @@ nav:
       - Infrastructure: infrastructure/
       - Applications: applications/
   - Workflows: workflows/
+  - Road Map: roadmap/
 
 markdown_extensions:
   - attr_list
