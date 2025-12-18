@@ -1,2 +1,2 @@
-- [Infrastructure Page One](infra.md)
-- [Infrastructure Page Two](infra.md)
+- [Infrastructure Page One](infra1.md)
+- [Infrastructure Page Two](infra2.md)
