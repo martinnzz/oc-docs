@@ -51,7 +51,11 @@ nav:
       - Images: images/
       - Schemas: schema/
 
+markdown_extensions:
+  - attr_list
+
 plugins:
   - search
   - literate-nav:
       nav_file: SUMMARY.md
+
